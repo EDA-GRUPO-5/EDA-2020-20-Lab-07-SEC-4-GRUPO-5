@@ -38,12 +38,12 @@ recae sobre el controlador.
 # ___________________________________________________
 
 
-def init():
+def initialice():
     """
     Llama la funcion de inicializacion del modelo.
     """
 
-    return None
+    return model.initialice()
 
 
 # ___________________________________________________

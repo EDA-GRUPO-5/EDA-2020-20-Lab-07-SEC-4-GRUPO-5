@@ -38,6 +38,8 @@ es decir contiene los modelos con los datos en memoria
 # API del TAD Catalogo de accidentes
 # -----------------------------------------------------
 
+def initialice():
+    print('Cargado')
 
 # Funciones para agregar informacion al catalogo
 

@@ -48,7 +48,7 @@ crimefile = 'crime-utf8.csv'
 def printMenu():
     print("\n")
     print("*******************************************")
-    print("Bienvenido")
+    print("Bienvenido\n")
     print("1- Inicializar Analizador")
     print("2- Cargar información de accidentes")
     print("3- Conocer los accidentes en una fecha")
@@ -60,6 +60,7 @@ def printMenu():
     print("9- Usar el conjunto completo de datos")
     print("0- Salir")
     print("*******************************************")
+    print("\n")
 
 
 """
@@ -72,16 +73,64 @@ while True:
     if int(inputs[0]) == 1:
         print("\nInicializando....")
         # cont es el controlador que se usará de acá en adelante
-        cont = controller.init()
+        cont = controller.initialice()
 
     elif int(inputs[0]) == 2:
         print("\nCargando información de crimenes ....")
 
     elif int(inputs[0]) == 3:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nCargando información de crimenes ....")
 
 
     elif int(inputs[0]) == 4:
+        print("\nRequerimiento No 1 del reto 3: ")
+    
+    elif int(inputs[0]) == 5:
+        centiY, centiM, centiD = True, True, True
+        while centiY:
+            yyyy1 = int(input('Ingresa el anio menor\n>'))
+            yyyy2 = int(input('Ingresa el anio mayor\n>'))
+            yyyy2, yyyy1 = max(yyyy1, yyyy2), min(yyyy1, yyyy2)
+
+            if (999 < yyyy1 < 9999 and 999 < yyyy2 < 9999):
+                centiY = False
+            else:
+                print('Ingrese anios validos')
+
+        while centiM:
+            mm1 = int(input('Ingresa el mes menor\n>'))
+            mm2 = int(input('Ingresa el mes mayor\n>'))
+            mm2, mm1 = (max(mm1, mm2), min(mm1, mm2))
+
+            if (0 < mm1 < 13 and 0 < mm2 < 13):
+                centiM = False
+            else:
+                print('Ingrese meses validos')
+
+        while centiD:
+            dd1 = int(input('Ingresa el dia menor\n>'))
+            dd2 = int(input('Ingresa el dia mayor\n>'))
+            dd2, dd1 = (max(dd1, dd2), min(dd1, dd2))
+
+            if (0 < dd1 < 32 and 0 < dd2 < 32):
+                centiD = False
+            else:
+                print('Ingresa un dias validos')
+        
+        dateMin = f'{yyyy1}-{mm1}-{dd1}'
+        dateMax = f'{yyyy2}-{mm2}-{dd2}'
+        print(f"\nBuscando crimenes en el rango de fechas {dateMin} - {dateMax}...")
+
+    elif int(inputs[0]) == 6:
+        print("\nBuscando crimenes en un rango de fechas: ")
+
+    elif int(inputs[0]) == 7:
+        print("\nRequerimiento No 1 del reto 3: ")
+    
+    elif int(inputs[0]) == 8:
+        print("\nBuscando crimenes en un rango de fechas: ")
+
+    elif int(inputs[0]) == 9:
         print("\nRequerimiento No 1 del reto 3: ")
 
     else:
