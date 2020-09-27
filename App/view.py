@@ -138,7 +138,7 @@ while True:
         dateMax = f'{yyyy2}-{mm2}-{dd2}'
         print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
         rta, category = controller.getAccidentsByRange(cont, dateMin, dateMax)
-        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)} dias) y la categoria de cada accidente es(en orden): [{category}]')
+        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)}) y la categoria mas recurrente es: {category}')
 
         inputs = '0'
 
