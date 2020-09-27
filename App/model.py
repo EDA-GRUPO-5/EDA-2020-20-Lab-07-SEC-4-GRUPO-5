@@ -42,8 +42,6 @@ tablas de simbolos.
 # API del TAD Catalogo de Libros
 # -----------------------------------------------------
 
-def initialice():
-    print('Cargado')
 
 def newAnalyzer():
     """ Inicializa el analizador
@@ -177,11 +175,15 @@ def maxKey(analyzer):
     return om.maxKey(analyzer['dateIndex'])
 
 
-def getCrimesByRange(analyzer, initialDate, finalDate):
+def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     Retorna el numero de crimenes en un rago de fechas.
     """
     lst = om.values(analyzer['dateIndex'], initialDate, finalDate)
+    cat = om.get(analyzer['accidents'])
+    print(cat)
+    for i in range(lt.size(lst)):
+        lt.getElement(lst, i)
     return lst
 
 
@@ -197,6 +199,7 @@ def getCrimesByRangeCode(analyzer, initialDate, offensecode):
         if numoffenses is not None:
             return m.size(me.getValue(numoffenses)['lstoffenses'])
         return 0
+
 
 def getAccidentsByDate(analyzer, accidentDate):
 

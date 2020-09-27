@@ -63,6 +63,7 @@ def loadData(analyzer, accidentsfile):
         model.addAccident(analyzer, accident)
     return analyzer
 
+
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
@@ -103,14 +104,13 @@ def maxKey(analyzer):
     return model.maxKey(analyzer)
 
 
-def getCrimesByRange(analyzer, initialDate, finalDate):
+def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     Retorna el total de crimenes en un rango de fechas
     """
-    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
-    finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
-    return model.getCrimesByRange(analyzer, initialDate.date(),
-                                  finalDate.date())
+    initialDatef = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
+    finalDatef = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
+    return (model.getAccidentsByRange(analyzer, initialDatef.date(), finalDatef.date()),)
 
 
 def getCrimesByRangeCode(analyzer, initialDate,
@@ -122,6 +122,10 @@ def getCrimesByRangeCode(analyzer, initialDate,
     initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
     return model.getCrimesByRangeCode(analyzer, initialDate.date(),
                                       offensecode)
+
+
+def getAccidentsByRangeDate(analyzer, initialDate, finalDate):
+    pass
 
 
 def getAccidentsByDate(analyzer, accidentDate):

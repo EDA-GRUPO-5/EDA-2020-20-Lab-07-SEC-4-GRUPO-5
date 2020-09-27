@@ -38,7 +38,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-accidentsfile = 'us_accidents_small.csv'
+#accidentsfile = 'us_accidents_small.csv'
+accidentsfile = 'us_accidents_smaller.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -66,23 +67,29 @@ def printMenu():
 """
 Menu principal
 """
+
+inputs = '1'
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n>')
+    #inputs = input('Seleccione una opción para continuar\n>')
 
     if int(inputs[0]) == 1:
         print("\nInicializando....")
         # cont es el controlador que se usará de acá en adelante
         cont = controller.initialice()
 
+        inputs = '2'
+
     elif int(inputs[0]) == 2:
-        print("\nCargando información de crimenes ....")
+        print("\nCargando información de crimenes ...")
         controller.loadData(cont, accidentsfile)
         print('Accidentes cargados: ' + str(controller.accidentsSize(cont)))
         print('Altura del arbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
         print('Menor Llave: ' + str(controller.minKey(cont)))
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
+
+        inputs= '5'
 
     elif int(inputs[0]) == 3:
         accidentDate = input("Ingrese la fecha: ")
@@ -94,13 +101,16 @@ while True:
         print("\nRequerimiento No 1 del reto 3: ")
     
     elif int(inputs[0]) == 5:
-        centiY, centiM, centiD = True, True, True
+        
+        centiY, centiM, centiD = (True, True, True) if input('si') == 'si' else (False, False, False)
+        yyyy1, yyyy2, mm1, mm2, dd1, dd2 = 2016, 2016, 2, 6, 8, 23
+
         while centiY:
             yyyy1 = int(input('Ingresa el anio menor\n>'))
             yyyy2 = int(input('Ingresa el anio mayor\n>'))
             yyyy2, yyyy1 = max(yyyy1, yyyy2), min(yyyy1, yyyy2)
 
-            if (999 < yyyy1 < 9999 and 999 < yyyy2 < 9999):
+            if (999 < yyyy1 < 2999 and 999 < yyyy2 < 2999):
                 centiY = False
             else:
                 print('Ingrese anios validos')
@@ -127,7 +137,11 @@ while True:
         
         dateMin = f'{yyyy1}-{mm1}-{dd1}'
         dateMax = f'{yyyy2}-{mm2}-{dd2}'
-        print(f"\nBuscando crimenes en el rango de fechas {dateMin} - {dateMax}...")
+        print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
+        rta, category = controller.getAccidentsByRange(cont, dateMin, dateMax)
+        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {lt.size(rta)} y la categoria de cada accidente es(en orden): {category}')
+
+        inputs = '0'
 
     elif int(inputs[0]) == 6:
         print("\nBuscando crimenes en un rango de fechas: ")
