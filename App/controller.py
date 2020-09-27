@@ -110,7 +110,7 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     initialDatef = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
     finalDatef = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
-    return (model.getAccidentsByRange(analyzer, initialDatef.date(), finalDatef.date()),)
+    return model.getAccidentsByRange(analyzer, initialDatef.date(), finalDatef.date())
 
 
 def getCrimesByRangeCode(analyzer, initialDate,

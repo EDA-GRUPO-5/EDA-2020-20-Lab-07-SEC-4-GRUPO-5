@@ -38,8 +38,8 @@ operación seleccionada.
 # ___________________________________________________
 
 
-#accidentsfile = 'us_accidents_small.csv'
-accidentsfile = 'us_accidents_smaller.csv'
+accidentsfile = 'us_accidents_small.csv'
+#accidentsfile = 'us_accidents_smaller.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -102,8 +102,7 @@ while True:
     
     elif int(inputs[0]) == 5:
         
-        centiY, centiM, centiD = (True, True, True) if input('si') == 'si' else (False, False, False)
-        yyyy1, yyyy2, mm1, mm2, dd1, dd2 = 2016, 2016, 2, 6, 8, 23
+        centiY, centiM, centiD = True, True, True
 
         while centiY:
             yyyy1 = int(input('Ingresa el anio menor\n>'))
@@ -139,7 +138,7 @@ while True:
         dateMax = f'{yyyy2}-{mm2}-{dd2}'
         print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
         rta, category = controller.getAccidentsByRange(cont, dateMin, dateMax)
-        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {lt.size(rta)} y la categoria de cada accidente es(en orden): {category}')
+        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)} dias) y la categoria de cada accidente es(en orden): [{category}]')
 
         inputs = '0'
 

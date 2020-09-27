@@ -180,11 +180,10 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
     Retorna el numero de crimenes en un rago de fechas.
     """
     lst = om.values(analyzer['dateIndex'], initialDate, finalDate)
-    cat = om.get(analyzer['accidents'])
-    print(cat)
-    for i in range(lt.size(lst)):
-        lt.getElement(lst, i)
-    return lst
+    cat = ''
+    for i in range(lt.size(analyzer['accidents'])):
+        cat += str(lt.getElement(analyzer['accidents'],i)['Severity']) + ', '
+    return lst, cat[:-2]
 
 
 def getCrimesByRangeCode(analyzer, initialDate, offensecode):
