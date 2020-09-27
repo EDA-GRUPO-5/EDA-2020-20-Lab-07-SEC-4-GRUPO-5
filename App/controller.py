@@ -40,10 +40,11 @@ recae sobre el controlador.
 
 def initialice():
     """
-    Llama la funcion de inicializacion del modelo.
+    Llama la funcion de inicializacion  del modelo.
     """
-
-    return model.initialice()
+    # catalog es utilizado para interactuar con el modelo
+    analyzer = model.newAnalyzer()
+    return analyzer
 
 
 # ___________________________________________________
@@ -55,9 +56,74 @@ def loadData(analyzer, accidentsfile):
     """
     Carga los datos de los archivos CSV en el modelo
     """
-    
+    accidentsfile = cf.data_dir + accidentsfile
+    input_file = csv.DictReader(open(accidentsfile, encoding="utf-8"),
+                                delimiter=",")
+    for accident in input_file:
+        model.addAccident(analyzer, accident)
     return analyzer
 
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
+
+
+def accidentsSize(analyzer):
+    """
+    Numero de accidentes leidos
+    """
+    return model.accidentSize(analyzer)
+
+
+def indexHeight(analyzer):
+    """
+    Altura del indice (arbol)
+    """
+    return model.indexHeight(analyzer)
+
+
+def indexSize(analyzer):
+    """
+    Numero de nodos en el arbol
+    """
+    return model.indexSize(analyzer)
+
+
+def minKey(analyzer):
+    """
+    La menor llave del arbol
+    """
+    return model.minKey(analyzer)
+
+
+def maxKey(analyzer):
+    """
+    La mayor llave del arbol
+    """
+    return model.maxKey(analyzer)
+
+
+def getCrimesByRange(analyzer, initialDate, finalDate):
+    """
+    Retorna el total de crimenes en un rango de fechas
+    """
+    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
+    finalDate = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
+    return model.getCrimesByRange(analyzer, initialDate.date(),
+                                  finalDate.date())
+
+
+def getCrimesByRangeCode(analyzer, initialDate,
+                         offensecode):
+    """
+    Retorna el total de crimenes de un tipo especifico en una
+    fecha determinada
+    """
+    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
+    return model.getCrimesByRangeCode(analyzer, initialDate.date(),
+                                      offensecode)
+
+
+def getAccidentsByDate(analyzer, accidentDate):
+    accidentDate = datetime.datetime.strptime(accidentDate, '%Y-%m-%d')
+    return model.getAccidentsByDate(analyzer, accidentDate.date())
