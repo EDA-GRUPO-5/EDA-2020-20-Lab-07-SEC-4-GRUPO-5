@@ -120,7 +120,7 @@ def newDataEntry(accident):
     Crea una entrada en el indice por fechas, es decir en el arbol
     binario.
     """
-    entry = {'sevetiryIndex': None, 'lstaccidents': None}
+    entry = {'severityIndex': None, 'lstaccidents': None}
     entry['severityIndex'] = m.newMap(numelements=30,
                                      maptype='PROBING',
                                      comparefunction=compareSeverities)
@@ -175,38 +175,15 @@ def maxKey(analyzer):
     return om.maxKey(analyzer['dateIndex'])
 
 
-def getAccidentsByRange(analyzer, initialDate, finalDate):
-    """
-    Retorna el numero de crimenes en un rago de fechas.
-    """
-    lst = om.values(analyzer['dateIndex'], initialDate, finalDate)
-    cat = []
-    for i in range(lt.size(analyzer['accidents'])):
-        cat.append(lt.getElement(analyzer['accidents'],i)['Severity'])
-    category = max(set(cat), key=cat.count)
-    return rtaL, categoryI
-
-
-def getCrimesByRangeCode(analyzer, initialDate, offensecode):
-    """
-    Para una fecha determinada, retorna el numero de crimenes
-    de un tipo especifico.
-    """
-    crimedate = om.get(analyzer['dateIndex'], initialDate)
-    if crimedate['key'] is not None:
-        offensemap = me.getValue(crimedate)['offenseIndex']
-        numoffenses = m.get(offensemap, offensecode)
-        if numoffenses is not None:
-            return m.size(me.getValue(numoffenses)['lstoffenses'])
+def getAccidentsBySeverity(analyzer, initialDate, severity):
+    accidentdate = om.get(analyzer['dateIndex'], initialDate)
+    if accidentdate['key'] is not None:
+        severitymap = me.getValue(accidentdate)['severityIndex']
+        numseverities = m.get(severitymap, severity)
+        if numseverities is not None:
+            return m.size(me.getValue(numseverities)['lstseverities'])
         return 0
-
-
-def getAccidentsByDate(analyzer, accidentDate):
-
-    lst = om.values(analyzer['dateIndex'], accidentDate, accidentDate)
-
-    return lst
-
+    
 
 # ==============================
 # Funciones de Comparacion
