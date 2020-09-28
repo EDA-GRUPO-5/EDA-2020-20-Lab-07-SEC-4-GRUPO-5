@@ -38,7 +38,7 @@ recae sobre el controlador.
 # ___________________________________________________
 
 
-def initialice():
+def init():
     """
     Llama la funcion de inicializacion  del modelo.
     """
@@ -62,7 +62,6 @@ def loadData(analyzer, accidentsfile):
     for accident in input_file:
         model.addAccident(analyzer, accident)
     return analyzer
-
 
 # ___________________________________________________
 #  Funciones para consultas
@@ -102,7 +101,12 @@ def maxKey(analyzer):
     La mayor llave del arbol
     """
     return model.maxKey(analyzer)
+  
 
+def getAccidentsBySeverity(analyzer, initialDate, severity):
+    initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
+    return model.getAccidentsBySeverity(analyzer, initialDate.date(),
+                                    severity)
 
 def getAccidentsByRange(analyzer, initialDate, finalDate):
     """

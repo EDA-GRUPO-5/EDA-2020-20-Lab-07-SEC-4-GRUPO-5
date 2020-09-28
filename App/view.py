@@ -39,7 +39,6 @@ operación seleccionada.
 
 
 accidentsfile = 'us_accidents_small.csv'
-#accidentsfile = 'us_accidents_smaller.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -76,25 +75,31 @@ while True:
     if int(inputs[0]) == 1:
         print("\nInicializando....")
         # cont es el controlador que se usará de acá en adelante
-        cont = controller.initialice()
+        cont = controller.init()
 
     elif int(inputs[0]) == 2:
-        print("\nCargando información de crimenes ...")
+        print("\nCargando información de accidentes....")
         controller.loadData(cont, accidentsfile)
-        print('Accidentes cargados: ' + str(controller.accidentsSize(cont)))
+        print('\nAccidentes cargados: ' + str(controller.accidentsSize(cont)))
         print('Altura del arbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
         print('Menor Llave: ' + str(controller.minKey(cont)))
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
 
     elif int(inputs[0]) == 3:
-        accidentDate = input("Ingrese la fecha: ")
-        print("\nBuscando accidentes de " + str(accidentDate))
-        print(cont["accidents"])
-
+        initialDate = input("Ingrese la fecha (YYYY-MM-DD): ")
+        print("\nBuscando accidentes de " + initialDate + "....")
+        severity1 = int(controller.getAccidentsBySeverity(cont, initialDate, '1'))
+        severity2 = int(controller.getAccidentsBySeverity(cont, initialDate, '2'))
+        severity3 = int(controller.getAccidentsBySeverity(cont, initialDate, '3'))
+        severity4 = int(controller.getAccidentsBySeverity(cont, initialDate, '4'))
+        severities = severity1+severity2+severity3+severity4
+        print("\nEn " + initialDate + " ocurrieron " + str(severities) + " accidentes." + 
+            " Sus severidades fueron: \n\nSeveridad 1: " + str(severity1) + "\nSeveridad 2: " + str(severity2) +
+            "\nSeveridad 3: " + str(severity3) + "\nSeveridad 4: " + str(severity4))
 
     elif int(inputs[0]) == 4:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\nConociendo los accidentes anteriores a una fecha ")
     
     elif int(inputs[0]) == 5:
         
@@ -135,16 +140,16 @@ while True:
         print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)}) y la categoria mas recurrente es: {category}')
 
     elif int(inputs[0]) == 6:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nBuscando el estado con más accidentes: ")
 
     elif int(inputs[0]) == 7:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\nConociendo accidentes por rango de horas: ")
     
     elif int(inputs[0]) == 8:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nZona geografica más accidentada: ")
 
     elif int(inputs[0]) == 9:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\n<Precaucion>\nConjunto completo de datos: ")
 
     else:
         sys.exit(0)

@@ -120,7 +120,7 @@ def newDataEntry(accident):
     Crea una entrada en el indice por fechas, es decir en el arbol
     binario.
     """
-    entry = {'sevetiryIndex': None, 'lstaccidents': None}
+    entry = {'severityIndex': None, 'lstaccidents': None}
     entry['severityIndex'] = m.newMap(numelements=30,
                                      maptype='PROBING',
                                      comparefunction=compareSeverities)
@@ -175,6 +175,13 @@ def maxKey(analyzer):
     return om.maxKey(analyzer['dateIndex'])
 
 
+def getAccidentsBySeverity(analyzer, initialDate, severity):
+    accidentdate = om.get(analyzer['dateIndex'], initialDate)
+    if accidentdate['key'] is not None:
+        severitymap = me.getValue(accidentdate)['severityIndex']
+        numseverities = m.get(severitymap, severity)
+        if numseverities is not None:
+            return m.size(me.getValue(numseverities)['lstseverities'])
 def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     Retorna el numero de crimenes en un rago de fechas.
@@ -199,14 +206,7 @@ def getCrimesByRangeCode(analyzer, initialDate, offensecode):
         if numoffenses is not None:
             return m.size(me.getValue(numoffenses)['lstoffenses'])
         return 0
-
-
-def getAccidentsByDate(analyzer, accidentDate):
-
-    lst = om.values(analyzer['dateIndex'], accidentDate, accidentDate)
-
-    return lst
-
+    
 
 # ==============================
 # Funciones de Comparacion
