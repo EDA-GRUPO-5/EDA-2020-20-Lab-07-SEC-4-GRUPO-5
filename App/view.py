@@ -70,7 +70,7 @@ while True:
         cont = controller.init()
 
     elif int(inputs[0]) == 2:
-        print("\nCargando información de crimenes....")
+        print("\nCargando información de accidentes....")
         controller.loadData(cont, accidentsfile)
         print('\nAccidentes cargados: ' + str(controller.accidentsSize(cont)))
         print('Altura del arbol: ' + str(controller.indexHeight(cont)))
