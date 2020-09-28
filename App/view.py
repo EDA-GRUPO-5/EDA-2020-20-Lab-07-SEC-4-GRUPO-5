@@ -51,13 +51,13 @@ def printMenu():
     print("Bienvenido\n")
     print("1- Inicializar Analizador")
     print("2- Cargar información de accidentes")
-    print("3- Conocer los accidentes en una fecha")
-    print("4- Conocer los accidentes anteriores a una fecha")
-    print("5- Conocer los accidentes en un rango de fechas")
-    print("6- Conocer el estado con mas accidentes")
-    print("7- Conocer los accidentes por rango de horas")
-    print("8- Conocer la zona geográfica mas accidentada")
-    print("9- Usar el conjunto completo de datos")
+    print("3- Conocer los accidentes en una fecha REQ1")
+    print("4- Conocer los accidentes anteriores a una fecha REQ2")
+    print("5- Conocer los accidentes en un rango de fechas REQ3")
+    print("6- Conocer el estado con mas accidentes REQ4")
+    print("7- Conocer los accidentes por rango de horas REQ5")
+    print("8- Conocer la zona geográfica mas accidentada REQ6")
+    print("9- Usar el conjunto completo de datos REQ7")
     print("0- Salir")
     print("*******************************************")
     print("\n")
@@ -87,7 +87,7 @@ while True:
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
 
     elif int(inputs[0]) == 3:
-        initialDate = input("Ingrese la fecha (YYYY-MM-DD): ")
+        initialDate = input("\nIngrese la fecha (YYYY-MM-DD): ")
         print("\nBuscando accidentes de " + initialDate + "....")
         severity1 = int(controller.getAccidentsBySeverity(cont, initialDate, '1'))
         severity2 = int(controller.getAccidentsBySeverity(cont, initialDate, '2'))
@@ -106,8 +106,8 @@ while True:
         centiY, centiM, centiD = True, True, True
 
         while centiY:
-            yyyy1 = int(input('Ingresa el anio menor\n>'))
-            yyyy2 = int(input('Ingresa el anio mayor\n>'))
+            yyyy1 = int(input('Ingresa el anio inicial\n>'))
+            yyyy2 = int(input('Ingresa el anio final\n>'))
             yyyy2, yyyy1 = max(yyyy1, yyyy2), min(yyyy1, yyyy2)
 
             if (999 < yyyy1 < 2999 and 999 < yyyy2 < 2999):
@@ -116,8 +116,8 @@ while True:
                 print('Ingrese anios validos')
 
         while centiM:
-            mm1 = int(input('Ingresa el mes menor\n>'))
-            mm2 = int(input('Ingresa el mes mayor\n>'))
+            mm1 = int(input('Ingresa el mes inicial\n>'))
+            mm2 = int(input('Ingresa el mes final\n>'))
 
             if (0 < mm1 < 13 and 0 < mm2 < 13):
                 centiM = False
@@ -125,8 +125,8 @@ while True:
                 print('Ingrese meses validos')
 
         while centiD:
-            dd1 = int(input('Ingresa el dia menor\n>'))
-            dd2 = int(input('Ingresa el dia mayor\n>'))
+            dd1 = int(input('Ingresa el dia inicial\n>'))
+            dd2 = int(input('Ingresa el dia final.\n>'))
 
             if (0 < dd1 < 32 and 0 < dd2 < 32):
                 centiD = False
