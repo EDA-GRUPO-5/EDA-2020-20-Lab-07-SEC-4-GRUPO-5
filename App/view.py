@@ -86,12 +86,12 @@ while True:
         severity3 = int(controller.getAccidentsBySeverity(cont, initialDate, '3'))
         severity4 = int(controller.getAccidentsBySeverity(cont, initialDate, '4'))
         severities = severity1+severity2+severity3+severity4
-        print("\nLa cantidad de accidentes ocurridos en " + initialDate + " fueron " + str(severities) +
-            ". Sus severidades fueron: \n\nSeveridad 1: " + str(severity1) + "\nSeveridad 2: " + str(severity2) +
+        print("\nEn " + initialDate + " ocurrieron " + str(severities) + " accidentes." + 
+            " Sus severidades fueron: \n\nSeveridad 1: " + str(severity1) + "\nSeveridad 2: " + str(severity2) +
             "\nSeveridad 3: " + str(severity3) + "\nSeveridad 4: " + str(severity4))
 
     elif int(inputs[0]) == 4:
-        print("\nRequerimiento No 2 del reto 3: ")
+        print("\nRequerimiento No 1 del reto 3: ")
 
     else:
         sys.exit(0)
