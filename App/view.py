@@ -87,7 +87,7 @@ while True:
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
 
     elif int(inputs[0]) == 3:
-        initialDate = input("Ingrese la fecha (YYYY-MM-DD): ")
+        initialDate = input("\nIngrese la fecha (YYYY-MM-DD): ")
         print("\nBuscando accidentes de " + initialDate + "....")
         severity1 = int(controller.getAccidentsBySeverity(cont, initialDate, '1'))
         severity2 = int(controller.getAccidentsBySeverity(cont, initialDate, '2'))
