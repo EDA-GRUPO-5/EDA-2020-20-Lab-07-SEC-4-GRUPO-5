@@ -106,8 +106,8 @@ while True:
         centiY, centiM, centiD = True, True, True
 
         while centiY:
-            yyyy1 = int(input('Ingresa el anio menor\n>'))
-            yyyy2 = int(input('Ingresa el anio mayor\n>'))
+            yyyy1 = int(input('Ingresa el anio inicial\n>'))
+            yyyy2 = int(input('Ingresa el anio final\n>'))
             yyyy2, yyyy1 = max(yyyy1, yyyy2), min(yyyy1, yyyy2)
 
             if (999 < yyyy1 < 2999 and 999 < yyyy2 < 2999):
@@ -116,8 +116,8 @@ while True:
                 print('Ingrese anios validos')
 
         while centiM:
-            mm1 = int(input('Ingresa el mes menor\n>'))
-            mm2 = int(input('Ingresa el mes mayor\n>'))
+            mm1 = int(input('Ingresa el mes inicial\n>'))
+            mm2 = int(input('Ingresa el mes final\n>'))
 
             if (0 < mm1 < 13 and 0 < mm2 < 13):
                 centiM = False
@@ -125,8 +125,8 @@ while True:
                 print('Ingrese meses validos')
 
         while centiD:
-            dd1 = int(input('Ingresa el dia menor\n>'))
-            dd2 = int(input('Ingresa el dia mayor\n>'))
+            dd1 = int(input('Ingresa el dia inicial\n>'))
+            dd2 = int(input('Ingresa el dia final\n>'))
 
             if (0 < dd1 < 32 and 0 < dd2 < 32):
                 centiD = False
