@@ -51,13 +51,13 @@ def printMenu():
     print("Bienvenido\n")
     print("1- Inicializar Analizador")
     print("2- Cargar información de accidentes")
-    print("3- Conocer los accidentes en una fecha")
-    print("4- Conocer los accidentes anteriores a una fecha")
-    print("5- Conocer los accidentes en un rango de fechas")
-    print("6- Conocer el estado con mas accidentes")
-    print("7- Conocer los accidentes por rango de horas")
-    print("8- Conocer la zona geográfica mas accidentada")
-    print("9- Usar el conjunto completo de datos")
+    print("3- Conocer los accidentes en una fecha REQ1")
+    print("4- Conocer los accidentes anteriores a una fecha REQ2")
+    print("5- Conocer los accidentes en un rango de fechas REQ3")
+    print("6- Conocer el estado con mas accidentes REQ4")
+    print("7- Conocer los accidentes por rango de horas REQ5")
+    print("8- Conocer la zona geográfica mas accidentada REQ6")
+    print("9- Usar el conjunto completo de datos REQ7")
     print("0- Salir")
     print("*******************************************")
     print("\n")
@@ -126,7 +126,7 @@ while True:
 
         while centiD:
             dd1 = int(input('Ingresa el dia inicial\n>'))
-            dd2 = int(input('Ingresa el dia final\n>'))
+            dd2 = int(input('Ingresa el dia final.\n>'))
 
             if (0 < dd1 < 32 and 0 < dd2 < 32):
                 centiD = False
