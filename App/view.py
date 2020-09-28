@@ -48,13 +48,19 @@ accidentsfile = 'us_accidents_small.csv'
 def printMenu():
     print("\n")
     print("*******************************************")
-    print("Bienvenido")
+    print("Bienvenido\n")
     print("1- Inicializar Analizador")
     print("2- Cargar información de accidentes")
     print("3- Conocer los accidentes en una fecha")
-    print("4- Requerimento 2")
+    print("4- Conocer los accidentes anteriores a una fecha")
+    print("5- Conocer los accidentes en un rango de fechas")
+    print("6- Conocer el estado con mas accidentes")
+    print("7- Conocer los accidentes por rango de horas")
+    print("8- Conocer la zona geográfica mas accidentada")
+    print("9- Usar el conjunto completo de datos")
     print("0- Salir")
     print("*******************************************")
+    print("\n")
 
 
 """
@@ -93,7 +99,7 @@ while True:
             "\nSeveridad 3: " + str(severity3) + "\nSeveridad 4: " + str(severity4))
 
     elif int(inputs[0]) == 4:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\nConociendo los accidentes anteriores a una fecha ")
     
     elif int(inputs[0]) == 5:
         
@@ -134,16 +140,16 @@ while True:
         print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)}) y la categoria mas recurrente es: {category}')
 
     elif int(inputs[0]) == 6:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nBuscando el estado con más accidentes: ")
 
     elif int(inputs[0]) == 7:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\nConociendo accidentes por rango de horas: ")
     
     elif int(inputs[0]) == 8:
-        print("\nBuscando crimenes en un rango de fechas: ")
+        print("\nZona geografica más accidentada: ")
 
     elif int(inputs[0]) == 9:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\n<Precaucion>\nConjunto completo de datos: ")
 
     else:
         sys.exit(0)
