@@ -39,7 +39,6 @@ operación seleccionada.
 
 
 accidentsfile = 'us_accidents_small.csv'
-#accidentsfile = 'us_accidents_smaller.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -49,110 +48,50 @@ accidentsfile = 'us_accidents_small.csv'
 def printMenu():
     print("\n")
     print("*******************************************")
-    print("Bienvenido\n")
+    print("Bienvenido")
     print("1- Inicializar Analizador")
     print("2- Cargar información de accidentes")
     print("3- Conocer los accidentes en una fecha")
-    print("4- Conocer los accidentes anteriores a una fecha")
-    print("5- Conocer los accidentes en un rango de fechas")
-    print("6- Conocer el estado con mas accidentes")
-    print("7- Conocer los accidentes por rango de horas")
-    print("8- Conocer la zona geográfica mas accidentada")
-    print("9- Usar el conjunto completo de datos")
+    print("4- Requerimento 2")
     print("0- Salir")
     print("*******************************************")
-    print("\n")
 
 
 """
 Menu principal
 """
-
-inputs = '1'
 while True:
     printMenu()
-    #inputs = input('Seleccione una opción para continuar\n>')
+    inputs = input('Seleccione una opción para continuar\n>')
 
     if int(inputs[0]) == 1:
         print("\nInicializando....")
         # cont es el controlador que se usará de acá en adelante
-        cont = controller.initialice()
-
-        inputs = '2'
+        cont = controller.init()
 
     elif int(inputs[0]) == 2:
-        print("\nCargando información de crimenes ...")
+        print("\nCargando información de crimenes....")
         controller.loadData(cont, accidentsfile)
-        print('Accidentes cargados: ' + str(controller.accidentsSize(cont)))
+        print('\nAccidentes cargados: ' + str(controller.accidentsSize(cont)))
         print('Altura del arbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
         print('Menor Llave: ' + str(controller.minKey(cont)))
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
 
-        inputs= '5'
-
     elif int(inputs[0]) == 3:
-        accidentDate = input("Ingrese la fecha: ")
-        print("\nBuscando accidentes de " + str(accidentDate))
-        print(cont["accidents"])
-
+        initialDate = input("Ingrese la fecha (YYYY-MM-DD): ")
+        print("\nBuscando accidentes de " + initialDate + "....")
+        severity1 = int(controller.getAccidentsBySeverity(cont, initialDate, '1'))
+        severity2 = int(controller.getAccidentsBySeverity(cont, initialDate, '2'))
+        severity3 = int(controller.getAccidentsBySeverity(cont, initialDate, '3'))
+        severity4 = int(controller.getAccidentsBySeverity(cont, initialDate, '4'))
+        severities = severity1+severity2+severity3+severity4
+        print("\nLa cantidad de accidentes ocurridos en " + initialDate + " fueron " + str(severities) +
+            ". Sus severidades fueron: \n\nSeveridad 1: " + str(severity1) + "\nSeveridad 2: " + str(severity2) +
+            "\nSeveridad 3: " + str(severity3) + "\nSeveridad 4: " + str(severity4))
 
     elif int(inputs[0]) == 4:
-        print("\nRequerimiento No 1 del reto 3: ")
-    
-    elif int(inputs[0]) == 5:
-        
-        centiY, centiM, centiD = True, True, True
-
-        while centiY:
-            yyyy1 = int(input('Ingresa el anio menor\n>'))
-            yyyy2 = int(input('Ingresa el anio mayor\n>'))
-            yyyy2, yyyy1 = max(yyyy1, yyyy2), min(yyyy1, yyyy2)
-
-            if (999 < yyyy1 < 2999 and 999 < yyyy2 < 2999):
-                centiY = False
-            else:
-                print('Ingrese anios validos')
-
-        while centiM:
-            mm1 = int(input('Ingresa el mes menor\n>'))
-            mm2 = int(input('Ingresa el mes mayor\n>'))
-            mm2, mm1 = (max(mm1, mm2), min(mm1, mm2))
-
-            if (0 < mm1 < 13 and 0 < mm2 < 13):
-                centiM = False
-            else:
-                print('Ingrese meses validos')
-
-        while centiD:
-            dd1 = int(input('Ingresa el dia menor\n>'))
-            dd2 = int(input('Ingresa el dia mayor\n>'))
-            dd2, dd1 = (max(dd1, dd2), min(dd1, dd2))
-
-            if (0 < dd1 < 32 and 0 < dd2 < 32):
-                centiD = False
-            else:
-                print('Ingresa un dias validos')
-        
-        dateMin = f'{yyyy1}-{mm1}-{dd1}'
-        dateMax = f'{yyyy2}-{mm2}-{dd2}'
-        print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
-        rta, category = controller.getAccidentsByRange(cont, dateMin, dateMax)
-        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)}) y la categoria mas recurrente es: {category}')
-
-        inputs = '0'
-
-    elif int(inputs[0]) == 6:
-        print("\nBuscando crimenes en un rango de fechas: ")
-
-    elif int(inputs[0]) == 7:
-        print("\nRequerimiento No 1 del reto 3: ")
-    
-    elif int(inputs[0]) == 8:
-        print("\nBuscando crimenes en un rango de fechas: ")
-
-    elif int(inputs[0]) == 9:
-        print("\nRequerimiento No 1 del reto 3: ")
+        print("\nRequerimiento No 2 del reto 3: ")
 
     else:
         sys.exit(0)
