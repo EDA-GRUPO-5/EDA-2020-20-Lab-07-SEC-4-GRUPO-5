@@ -38,7 +38,7 @@ recae sobre el controlador.
 # ___________________________________________________
 
 
-def initialice():
+def init():
     """
     Llama la funcion de inicializacion  del modelo.
     """
@@ -62,7 +62,6 @@ def loadData(analyzer, accidentsfile):
     for accident in input_file:
         model.addAccident(analyzer, accident)
     return analyzer
-
 
 # ___________________________________________________
 #  Funciones para consultas
@@ -102,32 +101,9 @@ def maxKey(analyzer):
     La mayor llave del arbol
     """
     return model.maxKey(analyzer)
+  
 
-
-def getAccidentsByRange(analyzer, initialDate, finalDate):
-    """
-    Retorna el total de crimenes en un rango de fechas
-    """
-    initialDatef = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
-    finalDatef = datetime.datetime.strptime(finalDate, '%Y-%m-%d')
-    return model.getAccidentsByRange(analyzer, initialDatef.date(), finalDatef.date())
-
-
-def getCrimesByRangeCode(analyzer, initialDate,
-                         offensecode):
-    """
-    Retorna el total de crimenes de un tipo especifico en una
-    fecha determinada
-    """
+def getAccidentsBySeverity(analyzer, initialDate, severity):
     initialDate = datetime.datetime.strptime(initialDate, '%Y-%m-%d')
-    return model.getCrimesByRangeCode(analyzer, initialDate.date(),
-                                      offensecode)
-
-
-def getAccidentsByRangeDate(analyzer, initialDate, finalDate):
-    pass
-
-
-def getAccidentsByDate(analyzer, accidentDate):
-    accidentDate = datetime.datetime.strptime(accidentDate, '%Y-%m-%d')
-    return model.getAccidentsByDate(analyzer, accidentDate.date())
+    return model.getAccidentsBySeverity(analyzer, initialDate.date(),
+                                    severity)
