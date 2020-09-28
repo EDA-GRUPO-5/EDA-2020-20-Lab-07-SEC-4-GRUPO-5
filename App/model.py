@@ -182,6 +182,7 @@ def getAccidentsBySeverity(analyzer, initialDate, severity):
         numseverities = m.get(severitymap, severity)
         if numseverities is not None:
             return m.size(me.getValue(numseverities)['lstseverities'])
+        
 def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     Retorna el numero de crimenes en un rago de fechas.
