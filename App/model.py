@@ -182,6 +182,29 @@ def getAccidentsBySeverity(analyzer, initialDate, severity):
         numseverities = m.get(severitymap, severity)
         if numseverities is not None:
             return m.size(me.getValue(numseverities)['lstseverities'])
+def getAccidentsByRange(analyzer, initialDate, finalDate):
+    """
+    Retorna el numero de crimenes en un rago de fechas.
+    """
+    lst = om.values(analyzer['dateIndex'], initialDate, finalDate)
+    cat = []
+    for i in range(lt.size(analyzer['accidents'])):
+        cat.append(lt.getElement(analyzer['accidents'],i)['Severity'])
+    category = max(set(cat), key=cat.count)
+    return lst, category
+
+
+def getCrimesByRangeCode(analyzer, initialDate, offensecode):
+    """
+    Para una fecha determinada, retorna el numero de crimenes
+    de un tipo especifico.
+    """
+    crimedate = om.get(analyzer['dateIndex'], initialDate)
+    if crimedate['key'] is not None:
+        offensemap = me.getValue(crimedate)['offenseIndex']
+        numoffenses = m.get(offensemap, offensecode)
+        if numoffenses is not None:
+            return m.size(me.getValue(numoffenses)['lstoffenses'])
         return 0
     
 
