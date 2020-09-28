@@ -182,6 +182,7 @@ def getAccidentsBySeverity(analyzer, initialDate, severity):
         numseverities = m.get(severitymap, severity)
         if numseverities is not None:
             return m.size(me.getValue(numseverities)['lstseverities'])
+        return 0
         
 def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
