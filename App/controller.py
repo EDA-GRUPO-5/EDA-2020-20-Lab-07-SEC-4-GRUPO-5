@@ -124,10 +124,6 @@ def getCrimesByRangeCode(analyzer, initialDate,
                                       offensecode)
 
 
-def getAccidentsByRangeDate(analyzer, initialDate, finalDate):
-    pass
-
-
 def getAccidentsByDate(analyzer, accidentDate):
     accidentDate = datetime.datetime.strptime(accidentDate, '%Y-%m-%d')
     return model.getAccidentsByDate(analyzer, accidentDate.date())
