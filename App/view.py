@@ -68,17 +68,15 @@ def printMenu():
 Menu principal
 """
 
-inputs = '1'
+
 while True:
     printMenu()
-    #inputs = input('Seleccione una opción para continuar\n>')
+    inputs = input('Seleccione una opción para continuar\n>')
 
     if int(inputs[0]) == 1:
         print("\nInicializando....")
         # cont es el controlador que se usará de acá en adelante
         cont = controller.initialice()
-
-        inputs = '2'
 
     elif int(inputs[0]) == 2:
         print("\nCargando información de crimenes ...")
@@ -88,8 +86,6 @@ while True:
         print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
         print('Menor Llave: ' + str(controller.minKey(cont)))
         print('Mayor Llave: ' + str(controller.maxKey(cont)))
-
-        inputs= '5'
 
     elif int(inputs[0]) == 3:
         accidentDate = input("Ingrese la fecha: ")
@@ -117,7 +113,6 @@ while True:
         while centiM:
             mm1 = int(input('Ingresa el mes menor\n>'))
             mm2 = int(input('Ingresa el mes mayor\n>'))
-            mm2, mm1 = (max(mm1, mm2), min(mm1, mm2))
 
             if (0 < mm1 < 13 and 0 < mm2 < 13):
                 centiM = False
@@ -127,7 +122,6 @@ while True:
         while centiD:
             dd1 = int(input('Ingresa el dia menor\n>'))
             dd2 = int(input('Ingresa el dia mayor\n>'))
-            dd2, dd1 = (max(dd1, dd2), min(dd1, dd2))
 
             if (0 < dd1 < 32 and 0 < dd2 < 32):
                 centiD = False
@@ -139,8 +133,6 @@ while True:
         print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
         rta, category = controller.getAccidentsByRange(cont, dateMin, dateMax)
         print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {len(category.split(","))} ({lt.size(rta)}) y la categoria mas recurrente es: {category}')
-
-        inputs = '0'
 
     elif int(inputs[0]) == 6:
         print("\nBuscando crimenes en un rango de fechas: ")

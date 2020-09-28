@@ -184,7 +184,7 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
     for i in range(lt.size(analyzer['accidents'])):
         cat.append(lt.getElement(analyzer['accidents'],i)['Severity'])
     category = max(set(cat), key=cat.count)
-    return rtaL, categoryI
+    return lst, category
 
 
 def getCrimesByRangeCode(analyzer, initialDate, offensecode):
