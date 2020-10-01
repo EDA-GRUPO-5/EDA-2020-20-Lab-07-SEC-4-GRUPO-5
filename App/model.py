@@ -186,14 +186,67 @@ def getAccidentsBySeverity(analyzer, initialDate, severity):
         
 def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
-    Retorna el numero de crimenes en un rago de fechas.
+    Retorna el numero de accidentes en un rango de fechas.
     """
     lst = om.values(analyzer['dateIndex'], initialDate, finalDate)
-    cat = []
-    for i in range(lt.size(analyzer['accidents'])):
-        cat.append(lt.getElement(analyzer['accidents'],i)['Severity'])
-    category = max(set(cat), key=cat.count)
-    return lst, category
+    
+    d = {'1': 0,'2': 0,'3':0, '4':0}
+
+    for i in range(lt.size(lst)):
+        d['1'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '1'))
+        d['2'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '2'))
+        d['3'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '3'))
+        d['4'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '4'))
+    
+    rtaSeverityMostCommon= max(d, key=d.get)
+    return sum(d.values()), rtaSeverityMostCommon
+
+
+def getAccidentsByHours(analyzer, initialHour, finalHour):
+    """
+    Retorna los accidentes ocurridos en un rango de horas(aproximadas)
+    """
+    lst = om.values(analyzer['dateIndex'], om.minKey(analyzer['dateIndex']), om.maxKey(analyzer['dateIndex']))
+
+    rta = {'1': 0,'2': 0,'3':0, '4':0}
+
+    #for i in range(lt.size(lst)):
+    for i in range(2):
+        k = lt.getElement(lst, i)
+        originalMap = me.getValue(om.get(analyzer['dateIndex'], k))['severityIndex']
+        d1 = m.get(originalMap, '1')
+        d2 = m.get(originalMap, '2')
+        d3 = m.get(originalMap, '3')
+        d4 = m.get(originalMap, '4')
+
+
+        if d1 is not None:
+            l1 = me.getValue(d1)['lstseverities']
+            for j1 in range(lt.size(l1)):
+                if (initialHour < datetime.datetime.strptime(lt.getElement(l1, j1)['Start_Time'][-8:-3], '%H:%M') < finalHour):
+                    rta['1'] += 1
+            
+        if d2 is not None:
+            l2 = me.getValue(d2)['lstseverities']
+            for j2 in range(lt.size(l2)):
+                if (initialHour < datetime.datetime.strptime(lt.getElement(l2, j2)['Start_Time'][-8:-3], '%H:%M') < finalHour):
+                    rta['2'] += 1
+
+        if d3 is not None:
+            l3 = me.getValue(d3)['lstseverities']
+            for j3 in range(lt.size(l3)):
+                if (initialHour < datetime.datetime.strptime(lt.getElement(l3, j3)['Start_Time'][-8:-3], '%H:%M') < finalHour):
+                    rta['3'] += 1
+
+        if d4 is not None:
+            l4 = me.getValue(d4)['lstseverities']
+            for j4 in range(lt.size(l4)):
+                if (initialHour < datetime.datetime.strptime(lt.getElement(l4, j4)['Start_Time'][-8:-3], '%H:%M') < finalHour):
+                    rta['4'] += 1
+        
+        t = sum(rta.values())
+        xd = {x: rta[x]*100/t for x in rta} if t != 0 else {x :0.0 for x in rta}
+        return rta, xd, t
 
 
 def getCrimesByRangeCode(analyzer, initialDate, offensecode):
