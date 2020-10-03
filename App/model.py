@@ -191,16 +191,21 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
     """
     lst = om.values(analyzer['dateIndex'], initialDate, finalDate)
     
-    d = {'1': 0,'2': 0,'3':0, '4':0}
+    counter1, counter2, counter3, counter4 = 0, 0, 0, 0
 
     for i in range(lt.size(lst)):
-        d['1'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '1'))
-        d['2'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '2'))
-        d['3'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '3'))
-        d['4'] += int(getAccidentsBySeverity(analyzer, lt.getElement(lst, i), '4'))
+        keyDate = lt.getElement(lst, i)
+        counter1 += int(getAccidentsBySeverity(analyzer, keyDate, '1'))
+        counter2 += int(getAccidentsBySeverity(analyzer, keyDate, '2'))
+        counter3 += int(getAccidentsBySeverity(analyzer, keyDate, '3'))
+        counter4 += int(getAccidentsBySeverity(analyzer, keyDate, '4'))
     
-    rtaSeverityMostCommon= max(d, key=d.get)
-    return sum(d.values()), rtaSeverityMostCommon
+    mostCommonD = {'1':counter1, '2':counter2, '3':counter3, '4':counter4}
+    
+    total = counter1 + counter2 + counter3 + counter4
+
+    mostCommon = max(mostCommonD, key = mostCommonD.get) if (total > 0) else 'Ninguno'
+    return total, mostCommon
 
 
 def getAccidentsByHours(analyzer, initialHour, finalHour):
@@ -209,7 +214,7 @@ def getAccidentsByHours(analyzer, initialHour, finalHour):
     """
     lst = om.values(analyzer['dateIndex'], om.minKey(analyzer['dateIndex']), om.maxKey(analyzer['dateIndex']))
 
-    rta = m.newMap(numelements=17)
+    rta = lt.newList()
 
     for i in range(lt.size(lst)):
         k = lt.getElement(lst, i)
@@ -254,19 +259,16 @@ def getAccidentsByHours(analyzer, initialHour, finalHour):
 
         percent1, percent2, percent3, percent4 = 0, 0, 0, 0
         if t != 0:
-            percent1 = counter1*100/t
-            percent2 = counter2*100/t
-            percent3 = counter3*100/t
-            percent4 = counter4*100/t
+            percent1 = round((counter1*100/t), 2)
+            percent2 = round((counter2*100/t), 2)
+            percent3 = round((counter3*100/t), 2)
+            percent4 = round((counter4*100/t), 2)
 
-        m.put(rta, "category_1", (counter1, percent1))
-        print(rta)
-        m.put(rta, "category_2", (counter2, percent2))
-        print(rta)
-        m.put(rta, "category_3", (counter3, percent3))
-        print(rta)
-        m.put(rta, "category_4", (counter4, percent4))
-        print(rta)
+        
+        lt.addLast(rta, (counter1, percent1))
+        lt.addLast(rta, (counter2, percent2))
+        lt.addLast(rta, (counter3, percent3))
+        lt.addLast(rta, (counter4, percent4))
 
         return rta, t
 

@@ -23,7 +23,6 @@
 import sys
 import config
 from DISClib.ADT import list as lt
-from DISClib.ADT import map as m
 from App import controller
 assert config
 
@@ -40,6 +39,7 @@ operación seleccionada.
 
 
 accidentsfile = 'us_accidents_small.csv'
+accidentsfileBIG = 'us_accidents_small.csv'
 
 # ___________________________________________________
 #  Menu principal
@@ -143,8 +143,8 @@ while True:
         dateMax = f'{yyyy2}-{mm2}-{dd2}'
         print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
         controller.getAccidentsByDates(cont, dateMin, dateMax)
-        allSev, sev = controller.getAccidentsByDates(cont, dateMin, dateMax)
-        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {allSev} y la categoria mas recurrente es: {sev}')
+        total, sev = controller.getAccidentsByDates(cont, dateMin, dateMax)
+        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {total} y la categoria mas recurrente es: {sev}')
 
     elif int(inputs[0]) == 6:
         print("\nBuscando el estado con más accidentes: ")
@@ -193,15 +193,20 @@ while True:
 
         print(f'\nConociendo accidentes en el rango de horas <{initialTime}>-<{finalTime}>...')
         rta, total = controller.getAccidentsByHours(cont, initialTime, finalTime)
-        print(m.get(rta, "category_1"))
-        #print(f'Hay {total} accidentes en el rango de horas <{initialTime}>-<{finalTime}>:\nCategoria 1: {rta["cat1"]} (Aportando un {c1} %)\nCategoria 2: {rta["cat2"]} (Aportando un {c2} %)\nCategoria 3: {rta["cat3"]} (Aportando un {c3} %)\nCategoria 4: {rta["cat4"]} (Aportando un {c4} %)')
+        print(f'Hay {total} accidentes en el rango de horas <{initialTime}>-<{finalTime}>:\nCategoria 1: {lt.getElement(rta, 1)[0]} (Aportando un {lt.getElement(rta, 1)[1]} %)\nCategoria 2: {lt.getElement(rta, 2)[0]} (Aportando un {lt.getElement(rta, 2)[1]} %)\nCategoria 3: {lt.getElement(rta, 3)[0]} (Aportando un {lt.getElement(rta, 3)[1]} %)\nCategoria 4: {lt.getElement(rta, 4)[1]} (Aportando un {lt.getElement(rta, 4)[1]} %)')
     
     elif int(inputs[0]) == 8:
         print("\nZona geografica más accidentada: ")
 
     elif int(inputs[0]) == 9:
-        print("\n<Precaucion>\nConjunto completo de datos: ")
+        print("\n------======<Precaucion>======------\nSe recomienda Cerrar toda pestaña para evitar que su computador explote\nCargando información de accidentes (archivo grande)....")
 
+        controller.loadData(cont, accidentsfileBIG)
+        print('\nAccidentes cargados: ' + str(controller.accidentsSize(cont)))
+        print('Altura del arbol: ' + str(controller.indexHeight(cont)))
+        print('Elementos en el arbol: ' + str(controller.indexSize(cont)))
+        print('Menor Llave: ' + str(controller.minKey(cont)))
+        print('Mayor Llave: ' + str(controller.maxKey(cont)))
     else:
         sys.exit(0)
 sys.exit(0)
