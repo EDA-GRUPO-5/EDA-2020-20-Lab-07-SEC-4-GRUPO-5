@@ -23,6 +23,7 @@
 import sys
 import config
 from DISClib.ADT import list as lt
+from DISClib.ADT import map as m
 from App import controller
 assert config
 
@@ -145,7 +146,6 @@ while True:
         allSev, sev = controller.getAccidentsByDates(cont, dateMin, dateMax)
         print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {allSev} y la categoria mas recurrente es: {sev}')
 
-
     elif int(inputs[0]) == 6:
         print("\nBuscando el estado con más accidentes: ")
 
@@ -157,7 +157,7 @@ while True:
             hh1 = int(input('Ingrese la hora inicial\n>'))
             hh2 = int(input('Ingrese la hora final\n>'))
 
-            hh1, hh2 = max(hh1, hh2), min(hh1, hh2)
+            hh2, hh1 = max(hh1, hh2), min(hh1, hh2)
 
             if (-1 < hh1 < 24) and (-1 < hh2 < 24):
                 centiH = False
@@ -192,8 +192,9 @@ while True:
         finalTime = f'{hh2}:{mm2}'
 
         print(f'\nConociendo accidentes en el rango de horas <{initialTime}>-<{finalTime}>...')
-        rta, group, total = controller.getAccidentsByHours(cont, initialTime, finalTime)
-        print(f'Hay {total} accidentes en el rango de horas <{initialTime}>-<{finalTime}>:\nCategoria 1: {rta["1"]} (Aportando un {group["1"]} %)\nCategoria 2: {rta["2"]} (Aportando un {group["2"]} %)\nCategoria 3: {rta["3"]} (Aportando un {group["3"]} %)\nCategoria 4: {rta["4"]} (Aportando un {group["4"]} %)')
+        rta, total = controller.getAccidentsByHours(cont, initialTime, finalTime)
+        print(m.get(rta, "category_1"))
+        #print(f'Hay {total} accidentes en el rango de horas <{initialTime}>-<{finalTime}>:\nCategoria 1: {rta["cat1"]} (Aportando un {c1} %)\nCategoria 2: {rta["cat2"]} (Aportando un {c2} %)\nCategoria 3: {rta["cat3"]} (Aportando un {c3} %)\nCategoria 4: {rta["cat4"]} (Aportando un {c4} %)')
     
     elif int(inputs[0]) == 8:
         print("\nZona geografica más accidentada: ")

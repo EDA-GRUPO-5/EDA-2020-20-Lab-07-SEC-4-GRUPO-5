@@ -27,6 +27,7 @@ from DISClib.ADT import map as m
 import datetime
 assert config
 
+
 """
 En este archivo definimos los TADs que vamos a usar,
 es decir contiene los modelos con los datos en memoria
@@ -208,10 +209,9 @@ def getAccidentsByHours(analyzer, initialHour, finalHour):
     """
     lst = om.values(analyzer['dateIndex'], om.minKey(analyzer['dateIndex']), om.maxKey(analyzer['dateIndex']))
 
-    rta = {'1': 0,'2': 0,'3':0, '4':0}
+    rta = m.newMap(numelements=17)
 
-    #for i in range(lt.size(lst)):
-    for i in range(2):
+    for i in range(lt.size(lst)):
         k = lt.getElement(lst, i)
         originalMap = me.getValue(om.get(analyzer['dateIndex'], k))['severityIndex']
         d1 = m.get(originalMap, '1')
@@ -220,33 +220,55 @@ def getAccidentsByHours(analyzer, initialHour, finalHour):
         d4 = m.get(originalMap, '4')
 
 
+        counter1 = 0
         if d1 is not None:
             l1 = me.getValue(d1)['lstseverities']
             for j1 in range(lt.size(l1)):
                 if (initialHour < datetime.datetime.strptime(lt.getElement(l1, j1)['Start_Time'][-8:-3], '%H:%M') < finalHour):
-                    rta['1'] += 1
-            
+                    counter1 += 1
+        
+        
+        counter2 = 0
         if d2 is not None:
             l2 = me.getValue(d2)['lstseverities']
             for j2 in range(lt.size(l2)):
                 if (initialHour < datetime.datetime.strptime(lt.getElement(l2, j2)['Start_Time'][-8:-3], '%H:%M') < finalHour):
-                    rta['2'] += 1
+                    counter2 += 1
 
+
+        counter3 = 0
         if d3 is not None:
             l3 = me.getValue(d3)['lstseverities']
             for j3 in range(lt.size(l3)):
                 if (initialHour < datetime.datetime.strptime(lt.getElement(l3, j3)['Start_Time'][-8:-3], '%H:%M') < finalHour):
-                    rta['3'] += 1
+                    counter3 += 1
 
+        counter4 = 0
         if d4 is not None:
             l4 = me.getValue(d4)['lstseverities']
             for j4 in range(lt.size(l4)):
                 if (initialHour < datetime.datetime.strptime(lt.getElement(l4, j4)['Start_Time'][-8:-3], '%H:%M') < finalHour):
-                    rta['4'] += 1
+                    counter4 += 1
         
-        t = sum(rta.values())
-        xd = {x: rta[x]*100/t for x in rta} if t != 0 else {x :0.0 for x in rta}
-        return rta, xd, t
+        t = counter1 + counter2 + counter3 + counter4
+
+        percent1, percent2, percent3, percent4 = 0, 0, 0, 0
+        if t != 0:
+            percent1 = counter1*100/t
+            percent2 = counter2*100/t
+            percent3 = counter3*100/t
+            percent4 = counter4*100/t
+
+        m.put(rta, "category_1", (counter1, percent1))
+        print(rta)
+        m.put(rta, "category_2", (counter2, percent2))
+        print(rta)
+        m.put(rta, "category_3", (counter3, percent3))
+        print(rta)
+        m.put(rta, "category_4", (counter4, percent4))
+        print(rta)
+
+        return rta, t
 
 
 def getCrimesByRangeCode(analyzer, initialDate, offensecode):
