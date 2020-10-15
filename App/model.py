@@ -200,12 +200,23 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
         counter3 += int(getAccidentsBySeverity(analyzer, keyDate, '3'))
         counter4 += int(getAccidentsBySeverity(analyzer, keyDate, '4'))
     
-    mostCommonD = {'1':counter1, '2':counter2, '3':counter3, '4':counter4}
-    
     total = counter1 + counter2 + counter3 + counter4
 
-    mostCommon = max(mostCommonD, key = mostCommonD.get) if (total > 0) else 'Ninguno'
-    return total, mostCommon
+    mostCommon = counter1
+    k = '1'
+    if counter2 > mostCommon:
+        mostCommon = counter2
+        k = '2'
+
+    if counter3 > mostCommon:
+        mostCommon = counter3
+        k = '3'
+
+    if counter4 > mostCommon:
+        mostCommon = counter4
+        k = '4'
+
+    return total, k
 
 
 def getAccidentsByHours(analyzer, initialHour, finalHour):
@@ -257,7 +268,7 @@ def getAccidentsByHours(analyzer, initialHour, finalHour):
         
         t = counter1 + counter2 + counter3 + counter4
 
-        percent1, percent2, percent3, percent4 = 0, 0, 0, 0
+        percent1, percent2, percent3, percent4 = 0.0, 0.0, 0.0, 0.0
         if t != 0:
             percent1 = round((counter1*100/t), 2)
             percent2 = round((counter2*100/t), 2)
