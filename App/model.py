@@ -202,6 +202,9 @@ def getAccidentsByRange(analyzer, initialDate, finalDate):
     
     total = counter1 + counter2 + counter3 + counter4
 
+    if total == 0:
+        return (total, "Ninguno")
+        
     mostCommon = counter1
     k = '1'
     if counter2 > mostCommon:

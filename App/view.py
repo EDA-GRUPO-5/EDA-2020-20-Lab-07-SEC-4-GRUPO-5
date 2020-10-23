@@ -130,7 +130,7 @@ while True:
 
         while centiD:
             dd1 = int(input('Ingresa el dia inicial\n>'))
-            dd2 = int(input('Ingresa el dia final.\n>'))
+            dd2 = int(input('Ingresa el dia final\n>'))
 
             if (yyyy1 == yyyy2) and (mm1 == mm2):
                 dd2, dd1 = max(dd1,dd2), min(dd2,dd1)
@@ -140,12 +140,12 @@ while True:
             else:
                 print('Ingresa un dias validos')
         
-        dateMin = f'{yyyy1}-{mm1}-{dd1}'
-        dateMax = f'{yyyy2}-{mm2}-{dd2}'
+        dateMin = f'{yyyy1}-{mm1:02}-{dd1:02}'
+        dateMax = f'{yyyy2}-{mm2:02}-{dd2:02}'
         print(f"\nBuscando accidentes en el rango de fechas <{dateMin}> - <{dateMax}>...")
-        controller.getAccidentsByDates(cont, dateMin, dateMax)
         total, sev = controller.getAccidentsByDates(cont, dateMin, dateMax)
-        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> es: {total} y la categoria mas recurrente es: {sev}')
+        print(f'La cantidad de accidentes entre <{dateMin}> y <{dateMax}> son: {total}')
+        print(f'La categoria mas recurrente es: {sev}')
 
     elif int(inputs[0]) == 6:
         print("\nBuscando el estado con más accidentes: ")
@@ -189,12 +189,16 @@ while True:
             else:
                 print('Ingrese minutos validos\n')
         
-        initialTime = f'{hh1}:{mm1}'
-        finalTime = f'{hh2}:{mm2}'
+        initialTime = f'{hh1:02}:{mm1:02}'
+        finalTime = f'{hh2:02}:{mm2:02}'
 
         print(f'\nConociendo accidentes en el rango de horas <{initialTime}>-<{finalTime}>...')
         rta, total = controller.getAccidentsByHours(cont, initialTime, finalTime)
-        print(f'Hay {total} accidentes en el rango de horas <{initialTime}>-<{finalTime}>:\nCategoria 1: {lt.getElement(rta, 1)[0]} (Aportando un {lt.getElement(rta, 1)[1]} %)\nCategoria 2: {lt.getElement(rta, 2)[0]} (Aportando un {lt.getElement(rta, 2)[1]} %)\nCategoria 3: {lt.getElement(rta, 3)[0]} (Aportando un {lt.getElement(rta, 3)[1]} %)\nCategoria 4: {lt.getElement(rta, 4)[1]} (Aportando un {lt.getElement(rta, 4)[1]} %)')
+        print(f'Hay {total} accidentes en el rango de horas <{initialTime}>-<{finalTime}>:')
+        print(f'Categoria 1: {lt.getElement(rta, 1)[0]} (Aportando un {lt.getElement(rta, 1)[1]} %)')
+        print(f'Categoria 2: {lt.getElement(rta, 2)[0]} (Aportando un {lt.getElement(rta, 2)[1]} %)')
+        print(f'Categoria 3: {lt.getElement(rta, 3)[0]} (Aportando un {lt.getElement(rta, 3)[1]} %)')
+        print(f'Categoria 4: {lt.getElement(rta, 4)[0]} (Aportando un {lt.getElement(rta, 4)[1]} %)')
     
     elif int(inputs[0]) == 8:
         print("\nZona geografica más accidentada: ")
